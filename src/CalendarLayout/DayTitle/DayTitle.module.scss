@@ -1,0 +1,13 @@
+@import "styles/variables.scss";
+
+.container {
+  display: flex;
+
+  .dayBox {
+    flex-grow: 1;
+    padding: 5px;
+    text-align: center;
+    background-color: $theme-gray;
+    color: $theme-white;
+  }
+}

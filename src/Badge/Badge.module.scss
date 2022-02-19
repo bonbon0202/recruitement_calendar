@@ -1,0 +1,10 @@
+@import "styles/variables.scss";
+
+.box {
+  padding: 2px;
+  margin-right: 4px;
+  background-color: $theme-orange;
+  border-radius: 3px;
+  font-size: 8px;
+  color: $theme-white;
+}

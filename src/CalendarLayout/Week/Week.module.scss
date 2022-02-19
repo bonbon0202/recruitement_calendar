@@ -1,0 +1,39 @@
+@import "styles/variables.scss";
+
+$line: 1px solid #f0f0f0;
+
+.weekWrapper {
+  display: flex;
+}
+
+.oneDayWrapper {
+  flex-grow: 1;
+
+  .dateBox {
+    padding: 5px 0;
+    border-bottom: $line;
+    border-left: $line;
+    color: $theme-date-number-gray;
+    background-color: $theme-light-gray;
+    text-align: center;
+  }
+
+  &:last-child {
+    .dateBox,
+    .contentBox {
+      border-right: $line;
+    }
+  }
+
+  .contentBox {
+    padding: 5px;
+    border-bottom: $line;
+    border-left: $line;
+
+    .notice {
+      display: flex;
+      align-items: center;
+      font-size: 12px;
+    }
+  }
+}
