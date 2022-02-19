@@ -1,24 +1,30 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import moment from 'moment';
 import { MdArrowBackIos, MdArrowForwardIos } from 'react-icons/md'
-import { addOneMonth, minusOneMonth, makeWeekArrayOfMonth } from 'utils/date';
+import { makeWeekArray, calculateOneMonth } from 'utils/date';
 import { MonthButtonType } from './types';
 import DayTitle from "./DayTitle";
 import Week from './Week';
 import css from './Calendar.module.scss';
+
+const FIRST_WEEK_OF_YEAR = 1;
+const LAST_WEEK_OF_YEAR = 52;
 
 const Calendar = () => {
   const monthOfToday = moment().format('YYYY.MM');
 
   const [month, setMonth] = useState(monthOfToday);
 
-  const firstWeek = moment(month).clone().startOf('month').week();
-  const lastWeek = moment(month).clone().endOf('month').week() === 1 ? 53 : moment(month).clone().endOf('month').week();
-
   const handleClickMonthArrow = (type: MonthButtonType) => {
-    const result = type === 'previous' ? minusOneMonth(moment(month)) : addOneMonth(moment(month));
+    const result = calculateOneMonth(month, type);
     setMonth(result);
   }
+
+  const calendarMonth = moment(month).clone();
+  const firstWeek = calendarMonth.startOf('month').week();
+  const lastWeek = calendarMonth.endOf('month').week() === FIRST_WEEK_OF_YEAR
+    ? LAST_WEEK_OF_YEAR + FIRST_WEEK_OF_YEAR
+    : calendarMonth.endOf('month').week();
 
   return (
     <section className={css.container}>
@@ -35,8 +41,8 @@ const Calendar = () => {
       </div>
       <DayTitle />
       {
-        makeWeekArrayOfMonth(firstWeek, lastWeek).map((week, idx) => {
-          return <Week month={month} idx={idx} week={week} />
+        makeWeekArray(firstWeek, lastWeek).map((week) => {
+          return <Week key={week} month={month} week={week} />
         })
       }
     </section>
