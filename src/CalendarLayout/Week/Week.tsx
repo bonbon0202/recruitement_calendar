@@ -26,7 +26,6 @@ const Week: React.FC<Props> = ({ month, week, postings, isFirstOrLastWeek }) => 
           const endPostingsAtDay = findIncludedPostingsAtDay(postings, 'end', date);
           postingArr = [...startPostingsAtDay, ...endPostingsAtDay];
 
-
           return (
             <div key={idx} className={css.oneDayWrapper}>
               <div className={css.dateBox}>{date.format(isIncludesDateInMonth ? 'D' : 'M/D')}</div>

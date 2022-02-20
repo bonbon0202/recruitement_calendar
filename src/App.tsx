@@ -1,11 +1,19 @@
+import { useContext } from 'react';
+import { ModalContextStore } from 'store/ModalContext';
 import Calendar from "./CalendarLayout";
+import Modal from 'Modal';
 import css from './App.module.scss';
 
 const App = () => {
+  const modalContext = useContext(ModalContextStore);
+
   return (
-    <div className={css.wrapper}>
-      <Calendar />
-    </div>
+    <>
+      <div className={css.wrapper}>
+        <Calendar />
+      </div>
+      {modalContext?.isOpened && <Modal />}
+    </>
   );
 }
 

@@ -3,8 +3,13 @@
 .notice {
   display: flex;
   align-items: center;
-  margin-bottom: 5px;
+  padding: 5px;
   font-size: 12px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $theme-gray;
+  }
 
   .badge {
     padding: 2px;

@@ -2,4 +2,6 @@
 
 .wrapper {
   @include flexCenter;
+
+  height: 100vh;
 }

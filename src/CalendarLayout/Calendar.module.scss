@@ -1,8 +1,8 @@
 @import "styles/variables.scss";
 
 .container {
-  margin-top: 100px;
-  min-width: 800px;
+  // TODO: 반응형
+  min-width: 1000px;
 
   .monthTool {
     @include flexCenter;
