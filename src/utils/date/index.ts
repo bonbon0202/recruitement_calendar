@@ -1,5 +1,5 @@
 import moment from "moment";
-import { MonthButtonType } from "CalendarLayout/types";
+import { MonthButtonType, JobPosting } from "CalendarLayout/types";
 
 //TODO : 함수재사용으로 변경하기.
 export const addOneMonth = (date: moment.Moment) => {
@@ -30,5 +30,18 @@ export const makeWeekArray = (firstWeek: number, lastWeek: number) => {
   for (week; week <= lastWeek; week++) {
     result = result.concat(week);
   }
+  return result;
+};
+
+export const findIncludedPostingsAtWeek = (
+  postings: JobPosting[],
+  week: number
+) => {
+  const result = postings.filter((posting: JobPosting) => {
+    const startPosting = moment(posting.start_time).week();
+    const endPosting = moment(posting.end_time).week();
+    if (week === startPosting || week === endPosting) return posting;
+  });
+
   return result;
 };
