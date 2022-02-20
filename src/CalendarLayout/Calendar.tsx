@@ -6,16 +6,12 @@ import { makeWeekArray, calculateOneMonth, findIncludedPostingsAtWeek } from 'ut
 import { MonthButtonType, JobPosting } from './types';
 import DayTitle from "./DayTitle";
 import Week from './Week';
+import { MONTH_OF_TODAY, FIRST_WEEK_OF_YEAR, LAST_WEEK_OF_YEAR } from './data';
 import css from './Calendar.module.scss';
 
-const FIRST_WEEK_OF_YEAR = 1;
-const LAST_WEEK_OF_YEAR = 52;
-let postingsInMonth: JobPosting[] = [];
-
 const Calendar = () => {
-  const monthOfToday = moment().format('YYYY.MM');
 
-  const [month, setMonth] = useState<string>(monthOfToday);
+  const [month, setMonth] = useState<string>(MONTH_OF_TODAY);
   const { data, error, isLoading, isError, refetch } = useQuery<JobPosting[]>('jobPosting', () =>
     fetch(`/data/jobPostings.json`).then(res => res.json())
   );

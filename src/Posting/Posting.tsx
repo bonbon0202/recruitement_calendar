@@ -10,7 +10,7 @@ interface Props {
 const Posting: React.FC<Props> = ({ posting, type }) => {
   return (
     <div key={posting.id} className={css.notice}>
-      <span className={cn(css.box, css[type])}>
+      <span className={cn(css.badge, css[type])}>
         {TYPE_TO_STRING[type]}
       </span>
       <span className={css.companyName}>{posting.name}</span>

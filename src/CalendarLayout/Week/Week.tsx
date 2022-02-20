@@ -23,13 +23,10 @@ const Week: React.FC<Props> = ({ month, week, postings }) => {
               <div className={css.contentBox}>
                 {
                   postings.map((posting: JobPosting) => {
-                    const startPosting = moment(posting.start_time).format('D') === date.format('D');
-                    const endPosting = moment(posting.end_time).format('D') === date.format('D');
-                    if (startPosting || endPosting) {
-                      return (
-                        <Posting key={posting.id} posting={posting} type={startPosting ? 'start' : 'end'} />
-                      )
-                    }
+                    const isStartPosting = moment(posting.start_time).format('D') === date.format('D');
+                    const isEndPosting = moment(posting.end_time).format('D') === date.format('D');
+                    if (isStartPosting || isEndPosting)
+                      return <Posting key={posting.id} posting={posting} type={isStartPosting ? 'start' : 'end'} />
                   })
                 }
               </div>
@@ -42,4 +39,3 @@ const Week: React.FC<Props> = ({ month, week, postings }) => {
 };
 
 export default Week;
-
