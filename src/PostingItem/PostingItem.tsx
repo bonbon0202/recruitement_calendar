@@ -1,6 +1,7 @@
 import { cn } from 'utils/styles';
-import { JobPosting } from '../CalendarLayout/types';
-import css from './Posting.module.scss';
+import { JobPosting } from 'types';
+import { TYPE_TO_STRING } from 'data';
+import css from './PostingItem.module.scss';
 
 interface Props {
   posting: JobPosting;
@@ -20,8 +21,3 @@ const Posting: React.FC<Props> = ({ posting, type }) => {
 };
 
 export default Posting;
-
-const TYPE_TO_STRING = {
-  start: '시',
-  end: '끝'
-}

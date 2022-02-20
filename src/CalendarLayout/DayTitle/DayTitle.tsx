@@ -1,5 +1,5 @@
 import React from 'react';
-import { DAYS_NAME } from '../data';
+import { DAYS_NAME } from 'data';
 import css from './DayTitle.module.scss';
 
 const DayTitle = () => {

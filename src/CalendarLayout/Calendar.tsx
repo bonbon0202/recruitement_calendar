@@ -3,10 +3,10 @@ import { useQuery } from 'react-query';
 import moment from 'moment';
 import { MdArrowBackIos, MdArrowForwardIos } from 'react-icons/md'
 import { makeWeekArray, calculateOneMonth, findIncludedPostingsAtWeek } from 'utils/date';
-import { MonthButtonType, JobPosting } from './types';
+import { MonthButtonType, JobPosting } from 'types';
 import DayTitle from "./DayTitle";
 import Week from './Week';
-import { MONTH_OF_TODAY, FIRST_WEEK_OF_YEAR, LAST_WEEK_OF_YEAR } from './data';
+import { MONTH_OF_TODAY, FIRST_WEEK_OF_YEAR, LAST_WEEK_OF_YEAR } from 'data';
 import css from './Calendar.module.scss';
 
 const Calendar = () => {
@@ -33,6 +33,14 @@ const Calendar = () => {
     ? LAST_WEEK_OF_YEAR + FIRST_WEEK_OF_YEAR
     : calendarMonth.endOf('month').week();
 
+  const firstDateInMonth = calendarMonth.startOf('month').format();
+  const lastDateInMonth = calendarMonth.endOf('month').format();
+  const postingsInMonth = data?.filter((posting) => {
+    if (moment(posting.start_time).isBetween(moment(firstDateInMonth).subtract(1, 'days'), moment(lastDateInMonth).add(1, 'days'))) {
+      return posting;
+    }
+  })
+
   return (
     <section className={css.container}>
       <div className={css.monthTool}>
@@ -47,10 +55,11 @@ const Calendar = () => {
         />
       </div>
       <DayTitle />
-      { data &&
+      { postingsInMonth &&
         makeWeekArray(firstWeek, lastWeek).map((week) => {
-          const postings = findIncludedPostingsAtWeek(data, week);
-          return <Week key={week} month={month} week={week} postings={postings} />
+          const postingsInWeek = findIncludedPostingsAtWeek(postingsInMonth, week);
+          const isFirstOrLastWeek = firstWeek === week || lastWeek === week;
+          return <Week key={week} month={month} week={week} postings={postingsInWeek} isFirstOrLastWeek={isFirstOrLastWeek} />
         })
       }
     </section>

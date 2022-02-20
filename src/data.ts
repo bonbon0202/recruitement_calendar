@@ -6,3 +6,8 @@ export const MONTH_OF_TODAY = moment().format("YYYY.MM");
 
 export const FIRST_WEEK_OF_YEAR = 1;
 export const LAST_WEEK_OF_YEAR = 52;
+
+export const TYPE_TO_STRING = {
+  start: "시",
+  end: "끝",
+};

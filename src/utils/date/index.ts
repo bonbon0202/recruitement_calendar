@@ -1,5 +1,6 @@
 import moment from "moment";
-import { MonthButtonType, JobPosting } from "CalendarLayout/types";
+import { MonthButtonType, JobPosting, PostingType } from "types";
+import { TYPE_TO_STRING } from "data";
 
 //TODO : 함수재사용으로 변경하기.
 export const addOneMonth = (date: moment.Moment) => {
@@ -40,8 +41,26 @@ export const findIncludedPostingsAtWeek = (
   const result = postings.filter((posting: JobPosting) => {
     const startPosting = moment(posting.start_time).week();
     const endPosting = moment(posting.end_time).week();
+
     if (week === startPosting || week === endPosting) return posting;
   });
 
   return result;
+};
+
+export const findIncludedPostingsAtDay = (
+  postings: JobPosting[],
+  type: PostingType,
+  date: moment.Moment
+) => {
+  const result = postings.filter((posting: JobPosting) => {
+    return (
+      moment(posting[type === "start" ? "start_time" : "end_time"]).format(
+        "D"
+      ) === date.format("D")
+    );
+  });
+  return result.sort((a, b) => {
+    return a.name < b.name ? -1 : a.name < b.name ? 1 : 0;
+  });
 };
