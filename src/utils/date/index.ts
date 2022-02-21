@@ -64,3 +64,27 @@ export const findIncludedPostingsAtDay = (
     return a.name < b.name ? -1 : a.name < b.name ? 1 : 0;
   });
 };
+
+export const convertDateToFormat = (date: string, form: string) => {
+  return moment(date).format(form);
+};
+
+export const calculateDiffFromToday = (date: string | moment.Moment) => {
+  const today = moment();
+
+  // TODO: refactoring
+  const diffDate = moment(date).diff(today, "d");
+  if (diffDate > 0) return `${diffDate}일 전`;
+  if (diffDate < 0) return `${Math.abs(diffDate)}일 지남`;
+
+  const diffHour = moment(date).diff(today, "hour");
+  if (diffHour > 0) return `${diffHour}시간 전`;
+  if (diffHour < 0) return `${Math.abs(diffHour)}시간 지남`;
+
+  const diffMinute = moment(date).diff(today, "minute");
+  if (diffMinute > 5) return `${diffMinute}분 전`;
+  if (diffMinute > 0) return `${diffMinute}분 이내 전`;
+  if (diffMinute < 0) return `${Math.abs(diffMinute)}분 지남`;
+
+  return "현재";
+};

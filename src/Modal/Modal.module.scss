@@ -1,8 +1,10 @@
 @import "styles/variables";
 
-.dimmedBackground {
-  @include flexCenter;
+.pointer {
+  cursor: pointer;
+}
 
+.dimmedBackground {
   position: absolute;
   top: 0;
   right: 0;
@@ -10,18 +12,58 @@
   left: 0;
   background-color: rgba(0, 0, 0, 0.25);
   cursor: pointer;
+  overflow: scroll;
 
   .container {
+    display: flex;
+    flex-direction: column;
+    min-width: 600px;
+    max-width: 800px;
+    margin: 20px auto;
     background-color: $theme-white;
-    width: 600px;
+    cursor: default;
+
+    img {
+      float: none !important;
+      position: relative !important;
+      max-width: 100% !important;
+      height: auto !important;
+    }
 
     .recruitmentInfo {
       display: flex;
+      position: relative;
+      padding: 20px 15px;
+      border-bottom: $line;
 
       img {
-        max-width: 90px;
+        max-width: 90px !important;
         max-height: 140px;
+        margin-right: 20px;
       }
+
+      .companyName {
+        margin-bottom: 10px;
+        font-size: 18px;
+        font-weight: bold;
+      }
+
+      .diffDate {
+        margin-left: 10px;
+        color: $theme-orange;
+        font-weight: bold;
+      }
+
+      .closeIcon {
+        position: absolute;
+        right: 15px;
+        font-size: 24px;
+        cursor: pointer;
+      }
+    }
+
+    .contentWrapper {
+      padding: 20px 15px;
     }
   }
 }

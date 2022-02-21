@@ -11,3 +11,9 @@ export const TYPE_TO_STRING = {
   start: "시",
   end: "끝",
 };
+
+export const DATE_CONVERT_FORM = {
+  fullDate: "YYYY.MM.DD HH:MM",
+  yearMonth: "YYY.MM",
+  date: "D",
+};

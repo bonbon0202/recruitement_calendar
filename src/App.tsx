@@ -9,9 +9,7 @@ const App = () => {
 
   return (
     <>
-      <div className={css.wrapper}>
-        <Calendar />
-      </div>
+      <Calendar />
       {modalContext?.isOpened && <Modal />}
     </>
   );
