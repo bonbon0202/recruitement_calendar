@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useQuery } from 'react-query';
 import moment from 'moment';
 import { MdArrowBackIos, MdArrowForwardIos } from 'react-icons/md'
@@ -58,8 +58,7 @@ const Calendar = () => {
       { postingsInMonth &&
         makeWeekArray(firstWeek, lastWeek).map((week) => {
           const postingsInWeek = findIncludedPostingsAtWeek(postingsInMonth, week);
-          const isFirstOrLastWeek = firstWeek === week || lastWeek === week;
-          return <Week key={week} month={month} week={week} postings={postingsInWeek} isFirstOrLastWeek={isFirstOrLastWeek} />
+          return <Week key={week} month={month} week={week} postings={postingsInWeek} />
         })
       }
     </section>
