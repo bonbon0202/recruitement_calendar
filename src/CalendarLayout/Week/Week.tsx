@@ -20,7 +20,7 @@ const Week: React.FC<Props> = ({ month, week, postings }) => {
         [...Array(7)].map((_, idx) => {
           let date = moment(month).clone().startOf('year').week(week).startOf('week').add(idx, 'day');
           const isIncludesDateInMonth = date.format('YYYY.MM') === month; // TODO: 함수로 빼기.
-          const isToDay = date.format('D') === moment().format('D');
+          const isToDay = date.format('YYYY.MM.DD') === moment().format('YYYY.MM.DD');
           const startPostingsAtDay = findIncludedPostingsAtDay(postings, 'start', date);
           const endPostingsAtDay = findIncludedPostingsAtDay(postings, 'end', date);
           postingArr = [...startPostingsAtDay, ...endPostingsAtDay];
