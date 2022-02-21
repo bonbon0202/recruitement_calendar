@@ -12,15 +12,22 @@ import css from './Calendar.module.scss';
 const Calendar = () => {
 
   const [month, setMonth] = useState<string>(MONTH_OF_TODAY);
-  const { data, error, isLoading, isError, refetch } = useQuery<JobPosting[]>('jobPosting', () =>
-    fetch(`/data/jobPostings.json`).then(res => res.json())
+  const { data, error, isLoading, isError } = useQuery<JobPosting[]>('jobPosting', () =>
+    fetch('/data/jobPostings.json').then(res => res.json())
   );
 
-  // TODO: 로딩컴포넌트 생성
-  if (isLoading) return <p>Loading..</p>;
+  if (isLoading)
+    return (
+      <div className={css.loadingWrapper}>
+        <img src="/image/loading.gif" />
+      </div>
+    );
 
-  // TODO: 에러처리
-  // if (isError) return <span>Error: {error.message}</span>;
+  if (isError) {
+    let errorMessage = "Failed to do something exceptional";
+    if (error instanceof Error) errorMessage = error.message;
+    return <span>Error: {errorMessage}</span>;
+  }
 
   const handleClickMonthArrow = (type: MonthButtonType) => {
     const result = calculateOneMonth(month, type);
