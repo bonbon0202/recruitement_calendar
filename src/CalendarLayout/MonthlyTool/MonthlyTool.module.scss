@@ -1,0 +1,21 @@
+@import "styles/variables.scss";
+
+.monthTool {
+  @include flexCenter;
+  margin-bottom: 5px;
+
+  .arrowIcon {
+    font-size: 22px;
+    color: $theme-date-number-gray;
+    cursor: pointer;
+  }
+
+  .cureentMonth {
+    width: 100px;
+    margin: 0 10px;
+    font-size: 26px;
+    font-weight: bold;
+    text-align: center;
+    color: $theme-orange;
+  }
+}

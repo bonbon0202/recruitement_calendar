@@ -34,6 +34,24 @@ export const makeWeekArray = (firstWeek: number, lastWeek: number) => {
   return result;
 };
 
+export const findIncludedPostingsAtMonth = (
+  postings: JobPosting[],
+  date: moment.Moment | string
+) => {
+  const calendarMonth = moment(date).clone();
+  const firstDateInMonth = calendarMonth.startOf("month").format();
+  const lastDateInMonth = calendarMonth.endOf("month").format();
+  const postingsInMonth = postings.filter((posting) => {
+    const isPostingDateInMonth = moment(posting.start_time).isBetween(
+      moment(firstDateInMonth).subtract(1, "days"),
+      moment(lastDateInMonth).add(1, "days")
+    );
+    if (isPostingDateInMonth) return posting;
+  });
+
+  return postingsInMonth;
+};
+
 export const findIncludedPostingsAtWeek = (
   postings: JobPosting[],
   week: number
