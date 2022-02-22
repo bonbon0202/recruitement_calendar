@@ -1,9 +1,9 @@
 import { createContext, useState, Dispatch, SetStateAction } from 'react';
 import { JobPosting } from 'types';
 
-export const ModalContextStore = createContext<ModalContext | null>(null);
+export const ModalContextStore = createContext<ModalContextType | null>(null);
 
-interface ModalContext {
+interface ModalContextType {
   isOpened: boolean;
   setIsOpened: Dispatch<SetStateAction<boolean>>;
   employmentInfo: JobPosting | null;

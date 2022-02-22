@@ -19,7 +19,7 @@ const Calendar = () => {
   if (isLoading)
     return (
       <div className={css.loadingWrapper}>
-        <img src="/image/loading.gif" />
+        <img src="/image/loading.gif" alt="loading" />
       </div>
     );
 

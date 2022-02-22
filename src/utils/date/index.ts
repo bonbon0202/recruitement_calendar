@@ -1,28 +1,10 @@
 import moment from "moment";
 import { MonthButtonType, JobPosting, PostingType } from "types";
-import { TYPE_TO_STRING } from "data";
-
-//TODO : 함수재사용으로 변경하기.
-export const addOneMonth = (date: moment.Moment) => {
-  const result = date.clone().add(1, "month").format("YYYY.MM");
-  return result;
-};
-
-export const minusOneMonth = (date: moment.Moment) => {
-  const result = date.clone().subtract(1, "month").format("YYYY.MM");
-  return result;
-};
 
 export const calculateOneMonth = (month: string, type: MonthButtonType) => {
-  let result;
-
-  if (type === "previous") {
-    result = moment(month).subtract(1, "month").format("YYYY.MM");
-    return result;
-  }
-
-  result = moment(month).add(1, "month").format("YYYY.MM");
-  return result;
+  return type === "previous"
+    ? moment(month).subtract(1, "month").format("YYYY.MM")
+    : moment(month).add(1, "month").format("YYYY.MM");
 };
 
 export const makeWeekArray = (firstWeek: number, lastWeek: number) => {
@@ -47,6 +29,7 @@ export const findIncludedPostingsAtMonth = (
       moment(lastDateInMonth).add(1, "days")
     );
     if (isPostingDateInMonth) return posting;
+    return false;
   });
 
   return postingsInMonth;
@@ -61,6 +44,7 @@ export const findIncludedPostingsAtWeek = (
     const endPosting = moment(posting.end_time).week();
 
     if (week === startPosting || week === endPosting) return posting;
+    return false;
   });
 
   return result;
@@ -78,6 +62,7 @@ export const findIncludedPostingsAtDay = (
       ) === date.format("D")
     );
   });
+
   return result.sort((a, b) => {
     return a.name < b.name ? -1 : a.name < b.name ? 1 : 0;
   });
@@ -90,7 +75,6 @@ export const convertDateToFormat = (date: string, form: string) => {
 export const calculateDiffFromToday = (date: string | moment.Moment) => {
   const today = moment();
 
-  // TODO: refactoring
   const diffDate = moment(date).diff(today, "d");
   if (diffDate > 0) return `${diffDate}일 전`;
   if (diffDate < 0) return `${Math.abs(diffDate)}일 지남`;
@@ -104,5 +88,15 @@ export const calculateDiffFromToday = (date: string | moment.Moment) => {
   if (diffMinute > 0) return `${diffMinute}분 이내 전`;
   if (diffMinute < 0) return `${Math.abs(diffMinute)}분 지남`;
 
-  return "현재";
+  return "현재 마감시간입니다.";
+};
+
+export const checkIsDateInMonth = (date: moment.Moment, month: string) => {
+  const result = date.format("YYYY.MM") === month;
+  return result;
+};
+
+export const checkIsToday = (date: moment.Moment) => {
+  const result = date.format("YYYY.MM.DD") === moment().format("YYYY.MM.DD");
+  return result;
 };

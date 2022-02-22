@@ -13,10 +13,12 @@ interface Props {
 const Posting: React.FC<Props> = ({ posting, type }) => {
   const modalContext = useContext(ModalContextStore);
 
-  // TODO: 수정하기
-  const handleClickPosting = () => {
+  useEffect(() => {
+    modalContext?.employmentInfo && openModal();
+  }, [modalContext?.employmentInfo])
+
+  const updateEmploymentModalInfo = () => {
     modalContext?.setEmploymentInfo(posting);
-    openModal();
   }
 
   const openModal = () => {
@@ -27,7 +29,7 @@ const Posting: React.FC<Props> = ({ posting, type }) => {
     <div
       key={posting.id}
       className={css.notice}
-      onClick={handleClickPosting}
+      onClick={updateEmploymentModalInfo}
     >
       <span className={cn(css.badge, css[type])}>
         {TYPE_TO_STRING[type]}

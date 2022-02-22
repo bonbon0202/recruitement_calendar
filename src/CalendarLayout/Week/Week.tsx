@@ -1,8 +1,8 @@
 import moment from 'moment';
-import { findIncludedPostingsAtDay } from 'utils/date';
+import { findIncludedPostingsAtDay, checkIsDateInMonth, checkIsToday } from 'utils/date';
+import { cn, cond } from 'utils/styles';
 import Posting from '../../PostingItem';
 import { JobPosting } from 'types';
-import { cn, cond } from 'utils/styles';
 import css from './Week.module.scss';
 
 interface Props {
@@ -19,8 +19,6 @@ const Week: React.FC<Props> = ({ month, week, postings }) => {
       {
         [...Array(7)].map((_, idx) => {
           let date = moment(month).clone().startOf('year').week(week).startOf('week').add(idx, 'day');
-          const isIncludesDateInMonth = date.format('YYYY.MM') === month; // TODO: 함수로 빼기.
-          const isToDay = date.format('YYYY.MM.DD') === moment().format('YYYY.MM.DD');
           const startPostingsAtDay = findIncludedPostingsAtDay(postings, 'start', date);
           const endPostingsAtDay = findIncludedPostingsAtDay(postings, 'end', date);
           postingArr = [...startPostingsAtDay, ...endPostingsAtDay];
@@ -28,12 +26,12 @@ const Week: React.FC<Props> = ({ month, week, postings }) => {
           return (
             <div key={idx} className={css.oneDayWrapper}>
               <div className={css.dateBox}>
-                {date.format(isIncludesDateInMonth ? 'D' : 'M/D')}
+                {date.format(checkIsDateInMonth(date, month) ? 'D' : 'M/D')}
               </div>
               <div className={
                 cn(css.contentBox,
-                  cond(!isIncludesDateInMonth, css.dateInOtherMonth),
-                  cond(isToDay, css.todayContent))
+                  cond(!checkIsDateInMonth(date, month), css.dateInOtherMonth),
+                  cond(checkIsToday(date), css.todayContent))
               }>
                 {
                   postingArr.map((posting: JobPosting) => {
