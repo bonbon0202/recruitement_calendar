@@ -1,5 +1,4 @@
 import { useContext, useRef } from 'react';
-import moment from 'moment';
 import parse from 'html-react-parser';
 import { MdOutlineClose } from 'react-icons/md';
 import { ModalContextStore } from 'store/ModalContext';
@@ -24,7 +23,7 @@ const Modal = () => {
     <div className={css.dimmedBackground}>
       <section ref={modalRef} className={css.container}>
         <header className={css.recruitmentInfo}>
-          <img src={image} alt='companyLogo' />
+          <img src={image} alt='company logo' />
           <div className={css.nameDateWrapper}>
             <p className={css.companyName}>{name}</p>
             <span className={css.period}>{`${startDate} ~ ${endDate}`}</span>
